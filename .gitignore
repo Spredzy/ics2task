@@ -2,4 +2,5 @@ build/
 dist/
 ics2task.egg-info/
 .tox/
+*.pyc
 
