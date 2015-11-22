@@ -16,6 +16,7 @@ from icalendar import Calendar
 from ics2task import utils
 from taskw import TaskWarrior
 
+import fileinput
 import sys
 
 
@@ -74,19 +75,33 @@ def _parse_event(event):
     return formatted_event
 
 
-def _read_ics(path):
-    """Read .ics file"""
-    with open(path, 'rb') as ics_file:
-        ics_data = ics_file.read()
+def parse_input():
+    """Parse input and return array of calendar
 
-    calendar = Calendar.from_ical(ics_data)
-    return calendar
+    A user can either pass the calendar via the stdin or via one or several
+    icalendar files. This method will parse the input and return an array
+    of valid icalendar
+    """
+    input_data = ''
+    calendars = []
+
+    for line in fileinput.input():
+        if 'BEGIN:VCALENDAR' in line:
+            calendars.append(input_data)
+            input_data = line
+        else:
+            input_data += line
+    calendars.append(input_data)
+
+    return calendars[1:]
 
 
 def main():
     tw = TaskWarrior()
 
-    calendar = _read_ics(sys.argv[1])
-    for event in calendar.subcomponents:
-        l_event = _parse_event(event)
-        taskerize(tw, l_event)
+    raw_calendars = parse_input()
+    for raw_calendar in raw_calendars:
+        calendar = Calendar.from_ical(raw_calendar)
+        for event in calendar.subcomponents:
+            l_event = _parse_event(event)
+            taskerize(tw, l_event)
