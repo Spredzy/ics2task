@@ -17,7 +17,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='ics2task',
-    version='0.0.1',
+    version='0.0.3',
     description='An utility that converts ICS events into tasks in '
                 'Taskwarrior',
     long_description='An utility that converts ICS events into tasks in '
@@ -41,7 +41,9 @@ setup(
     ],
 
     install_requires=['icalendar', 'taskw'],
+    package_data={'': ['LICENSE']},
     packages=find_packages(exclude=['tests']),
+    include_package_data=True,
 
     entry_points={
         'console_scripts': [

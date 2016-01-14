@@ -1,0 +1,37 @@
+# ics2task
+
+A CLI tool to import ICS (RFC5455) event into task in TaskWarrior
+
+Considering that an event (Meeting, Todo, Call, etc...) is nothing more than a todo task with a set date, it makes perfect sense to be able to import them into TaskWarrior.
+By default the tasks imported are imported in the ics2task project.
+Once imported, running `task calendar` will give you your agenda.
+
+## Requires
+
+This module requires two other python modules :
+
+  * icalendar (to parse RFC5455 compliant data)
+  * taskw (python bindings for TaksWarrior)
+
+It works both on python2 and python3.
+
+## Install
+
+This module is available on pip :
+
+    #> pip install ics2task
+
+
+## Example
+
+`ics2task` can either take a file or an input stream
+
+    #> ics2task /path/to/ics/file.ics
+    #> task project:ics2task
+
+or
+
+    #> cat /path/to/ics/file.ics | ics2task
+    #> task project:ics2task
+
+It becomes really handy in use with mutt where one could add a maccro that would pipe and attached ics file into `ics2task` directly.
