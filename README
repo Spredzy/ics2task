@@ -34,4 +34,4 @@ or
     #> cat /path/to/ics/file.ics | ics2task
     #> task project:ics2task
 
-It becomes really handy in use with mutt where one could add a maccro that would pipe and attached ics file into `ics2task` directly.
+It becomes really handy in use with mutt where one could add a macro that would pipe and attached ics file into `ics2task` directly.
